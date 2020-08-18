@@ -1,21 +1,17 @@
+const db = require('../../config/database')
+
 module.exports = (app) => {
     app.get('/', function (req, resp){
         resp.send('<html><head><meta charset="utf-8"></head><body><h1>Hello World!!</h1></body></html>')
     })
     
     app.get('/livros', function (req, resp){
-        resp.marko(
-            require('../views/livros/lista/lista.marko'),{
-                livros: [
-                    {
-                        id: 1,
-                        titulo: "Fundamentos do node"
-                    },{
-                        id: 2,
-                        titulo: "Fundamentos de aprendizagem dinâmica"
-                    }
-                ]
-            }
-        )
+        db.all('SELECT * FROM livros', function( err, result){
+            resp.marko(
+                require('../views/livros/lista/lista.marko'),{
+                    livros: result
+                }
+            )
+        })
     })
 }
