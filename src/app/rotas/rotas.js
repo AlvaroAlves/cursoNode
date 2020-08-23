@@ -9,12 +9,14 @@ module.exports = (app) => {
     
     app.get('/livros', function (req, resp){
         const livroDao = new LivroDao(db)
-        livroDao.lista(function( err, result){
-            resp.marko(
+        livroDao.lista()
+            .then(livros => resp.marko(
                 require('../views/livros/lista/lista.marko'),{
-                    livros: result
+                    livros: livros
                 }
+            ))
+            .catch(
+                erro=> console.log(erro)
             )
-        })
     })
 }
