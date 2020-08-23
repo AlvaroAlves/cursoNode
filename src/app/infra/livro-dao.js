@@ -1,5 +1,3 @@
-const { ___resolveComponentKey } = require("marko/src/components/renderer");
-
 class LivroDao{
     constructor(db){
         this._db = db;
