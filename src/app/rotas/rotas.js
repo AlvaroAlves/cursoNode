@@ -31,7 +31,15 @@ module.exports = (app) => {
         livroDao.adiciona(req.body)
             .then(resp.redirect('/livros'))
             .catch(
-                erro=> console.log(erro)
+                err=> console.log(err)
             )
+    })
+
+    app.delete('/livros/:id', function(req,resp){
+        const id = req.params.id
+        const livroDao = new LivroDao(db)
+        livroDao.remove(id)
+        .then(()=> resp.status(200).end())
+        .catch( err => console.log(err))
     })
 }
