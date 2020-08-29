@@ -8,21 +8,9 @@ module.exports = (app) => {
         resp.send('<html><head><meta charset="utf-8"></head><body><h1>Hello World!!</h1></body></html>')
     })
     
-    app.get('/livros',[
-            check('titulo').isLength({min : 5}),
-            check('preco').isCurrency()
-        ],
+    app.get('/livros',
         (req, resp) => {
         const livroDao = new LivroDao(db)
-
-        const err = validationResult(req)
-
-        if(!err.isEmpty()){
-            return resp.marko(
-                require('../views/livros/form/form.marko'),
-                {livro : {}}
-            )
-        }
 
         livroDao.lista()
             .then(livros => resp.marko(
@@ -57,8 +45,21 @@ module.exports = (app) => {
         ).catch( err => console.log(err))
     })
 
-    app.post('/livros', function(req, resp){
+    app.post('/livros', [
+        check('titulo').isLength({min : 5}),
+        check('preco').isCurrency()
+    ],
+    (req, resp) => {
         const livroDao = new LivroDao(db)
+        const err = validationResult(req)
+
+        if(!err.isEmpty()){
+            return resp.marko(
+                require('../views/livros/form/form.marko'),
+                {livro : {}}
+            )
+        }
+
         livroDao.adiciona(req.body)
             .then(resp.redirect('/livros'))
             .catch(
