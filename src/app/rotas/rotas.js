@@ -26,6 +26,21 @@ module.exports = (app) => {
         )
     })
 
+    app.get('/livros/form/:id', function(req,resp){
+        const id = req.params.id
+        const livroDao = new LivroDao(db)
+
+        livroDao.buscaPorId(id)
+        .then(
+            livro => resp.marko(
+                require(
+                    '../views/livros/form/form.marko'
+                ), 
+                {livro:livro}
+            )
+        ).catch( err => console.log(err))
+    })
+
     app.post('/livros', function(req, resp){
         const livroDao = new LivroDao(db)
         livroDao.adiciona(req.body)
