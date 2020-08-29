@@ -18,16 +18,16 @@ var marko_template = module.exports = require("marko/src/html").t(__filename),
 function render(input, out, __component, component, state) {
   var data = input;
 
-  out.w("<html><head><meta charset=\"utf-8\"></head><body>");
+  out.w("<html><head><meta charset=\"utf-8\"><link rel=\"stylesheet\" href=\"/static/css/bootstrap.min.css\"><link rel=\"stylesheet\" href=\"/static/css/fontawesome.min.css\"><link rel=\"stylesheet\" href=\"/static/css/style.css\"></head><body>");
 
   component_globals_tag({}, out);
 
-  out.w("<h1>Listagem de livros!</h1><table id=\"livros\"><tr><td>ID</td><td>Título</td><td>Preço</td><td>Editar</td><td>Remover</td></tr>");
+  out.w("<header class=\"cabecalhoPrincipal\"><div class=\"container\"><div class=\"row align-items-center\"><div class=\"col-4\"><h1 class=\"logo\"><img src=\"/static/images/livros.svg\" alt=\"Livraria\"></h1></div><div class=\"cabecalhoPrincipal-navegacao col-8\"><a href=\"#\" class=\"login\"><i class=\"fas fa-sign-in-alt\"></i>Login</a></div></div></div></header><main class=\"conteudoPrincipal\"><div class=\"container\"><h1> Listagem de livros </h1><table id=\"livros\" class=\"table table-striped table-hover\"><thead class=\"thead-dark\"><tr><th>ID</th><th>Título</th><th>Preço</th><th>Editar</th><th>Remover</th></tr></thead><tbody>");
 
-  var for__12 = 0;
+  var for__28 = 0;
 
   marko_forEach(data.livros, function(livro) {
-    var keyscope__13 = "[" + ((for__12++) + "]");
+    var keyscope__29 = "[" + ((for__28++) + "]");
 
     out.w("<tr id=\"livro_" +
       marko_escapeXmlAttr(livro.id) +
@@ -41,14 +41,14 @@ function render(input, out, __component, component, state) {
       marko_escapeXmlAttr(livro.id) +
       "\">Editar</a></td><td><a href=\"#\" data-ref=\"" +
       marko_escapeXmlAttr(livro.id) +
-      "\" data-type=\"remocao\">Deletar</a></td></tr>");
+      "\" data-type=\"remocao\">Remover</a></td></tr>");
   });
 
-  out.w("</table><script src=\"static/js/remove-livro.js\"></script>");
+  out.w("</tbody></table></div></main><footer class=\"rodape\"><div class=\"container\"><div class=\"row align-items-center\"><div class=\"col-4\"><img src=\"/static/images/logo-rodape.svg\" class=\"logo-rodape\"></div><div class=\"col-8\"><ul class=\"redesSociais\"><li><a href=\"http://www.facebook.com/\" class=\"compartilhar-facebook\" target=\"_blank\">/teste</a></li><li><a href=\"http://www.twitter.com/\" class=\"compartilhar-twitter\" target=\"_blank\">@teste</a></li></ul></div></div></div></footer><script src=\"/static/js/remove-livro.js\"></script>");
 
   init_components_tag({}, out);
 
-  await_reorderer_tag({}, out, __component, "23");
+  await_reorderer_tag({}, out, __component, "50");
 
   out.w("</body></html>");
 }
