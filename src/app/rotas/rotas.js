@@ -46,8 +46,8 @@ module.exports = (app) => {
     })
 
     app.post('/livros', [
-        check('titulo').isLength({min : 5}),
-        check('preco').isCurrency()
+        check('titulo').isLength({min : 5}).withMessage('O título precisa ter no mínimo 5 caracteres!'),
+        check('preco').isCurrency().withMessage('O preço precisa ser um valor monetário válido!')
     ],
     (req, resp) => {
         const livroDao = new LivroDao(db)
@@ -56,7 +56,10 @@ module.exports = (app) => {
         if(!err.isEmpty()){
             return resp.marko(
                 require('../views/livros/form/form.marko'),
-                {livro : {}}
+                {
+                    livro : req.body,
+                    validationErrors: err.array()
+                }
             )
         }
 
