@@ -2,16 +2,23 @@ const templates = require('../views/templates')
 class BaseController {
 
     home() {
-        return function(req, resp) {
+        return (req, resp) => {
             resp.marko(
                 templates.base.home
             );
         };
     }
 
+    efetuaLogin(){
+        return (req, resp) => {
+            //
+        }
+    }
+
     static rotas() {
         return {
-            home : '/'
+            home : '/',
+            login: '/login'
         }
     }
 }
