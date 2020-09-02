@@ -7,6 +7,12 @@ class BaseController {
             );
         };
     }
+
+    static rotas() {
+        return {
+            home : '/'
+        }
+    }
 }
 
 module.exports = BaseController;
