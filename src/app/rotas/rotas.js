@@ -1,9 +1,9 @@
 const Livro = require('../Models/livro')
 
-const LivroController  = require('../Controllers/livroController')
+const LivroController  = require('../controllers/livroController')
 const livroController = new LivroController()
 
-const BaseController = require ('../Controllers/baseController')
+const BaseController = require ('../controllers/baseController')
 const baseController = new BaseController()
 
 module.exports = (app) => {
