@@ -1,26 +1,7 @@
-const Livro = require('../Models/livro')
-
-const LivroController  = require('../controllers/livroController')
-const livroController = new LivroController()
-
-const BaseController = require ('../controllers/baseController')
-const baseController = new BaseController()
+const livroRotas = require('./livroRotas')
+const baseRotas = require('./baseRotas')
 
 module.exports = (app) => {
-    const rotasLivro = LivroController.rotas()
-    const rotasBase = BaseController.rotas()
-
-    app.get(rotasBase.home, baseController.home())
-    
-    app.get(rotasLivro.lista, livroController.lista())
-
-    app.get(rotasLivro.cadastro, livroController.form())
-
-    app.get(rotasLivro.edicao, livroController.getById())
-
-    app.post(rotasLivro.lista, Livro.validacoes() , livroController.insert())
-
-    app.put(rotasLivro.lista, livroController.edit())
-
-    app.delete(rotasLivro.delecao, livroController.deleteLivro())
+    livroRotas(app)
+    baseRotas(app)
 }
