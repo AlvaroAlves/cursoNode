@@ -3,27 +3,28 @@ const { check, validationResult } = require('express-validator/check');
 const LivroController  = require('../Controllers/livroController')
 const livroController = new LivroController()
 
-
+const BaseController = require ('../Controllers/baseController');
+const baseController = new BaseController()
 
 module.exports = (app) => {
-    app.get('/', function (req, resp){
-        resp.send('<html><head><meta charset="utf-8"></head><body><h1>Hello World!!</h1></body></html>')
-    })
+    const rotasLivro = LivroController.rotas()
+
+    app.get('/', baseController.home())
     
-    app.get('/livros', livroController.lista())
+    app.get(rotasLivro.lista, livroController.lista())
 
-    app.get('/livros/form', livroController.form())
+    app.get(rotasLivro.cadastro, livroController.form())
 
-    app.get('/livros/form/:id', livroController.getById())
+    app.get(rotasLivro.edicao, livroController.getById())
 
-    app.post('/livros', [
+    app.post(rotasLivro.lista, [
         check('titulo').isLength({min : 5}).withMessage('O título precisa ter no mínimo 5 caracteres!'),
         check('preco').isCurrency().withMessage('O preço precisa ser um valor monetário válido!')
     ],
         livroController.insert()
     )
 
-    app.put('/livros', livroController.edit())
+    app.put(rotasLivro.lista, livroController.edit())
 
-    app.delete('/livros/:id', livroController.deleteLivro())
+    app.delete(rotasLivro.delecao, livroController.deleteLivro())
 }
