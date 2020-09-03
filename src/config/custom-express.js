@@ -11,6 +11,11 @@ app.use('/static', express.static('src/app/public'))
 app.use(bodyParser.urlencoded({
     extended: true
 }))
+
+const authenticateSession = require('./athenticateSession')
+
+authenticateSession(app)
+
 app.use(methodOverride(function (req, res) {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
       // look in urlencoded POST bodies and delete it
